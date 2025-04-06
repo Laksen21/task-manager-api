@@ -1,7 +1,5 @@
-package com.taskmanager.api.entity;
+package com.taskmanager.api.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,26 +8,14 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-@Entity
-public class Task {
+public class TaskDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;
     private String status;
     private LocalDateTime createdAt;
-
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    public Task() {
-        this.createdAt = LocalDateTime.now();
-    }
+    private UserDTO user;
 
     public Long getId() {
         return id;
@@ -47,20 +33,20 @@ public class Task {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -71,11 +57,11 @@ public class Task {
         this.createdAt = createdAt;
     }
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 }
