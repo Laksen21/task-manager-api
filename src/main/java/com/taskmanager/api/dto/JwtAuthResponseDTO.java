@@ -9,9 +9,16 @@ import lombok.NoArgsConstructor;
 //@NoArgsConstructor
 public class JwtAuthResponseDTO {
     private String token;
+    private String username;
 
-    public JwtAuthResponseDTO(String token) {
+    public JwtAuthResponseDTO(String token, String username) {
         this.token = token;
+        this.username = username;
+    }
+
+    public JwtAuthResponseDTO(String message) {
+        this.token = message;
+        this.username = null;
     }
 
     public String getToken() {
@@ -21,4 +28,13 @@ public class JwtAuthResponseDTO {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
+

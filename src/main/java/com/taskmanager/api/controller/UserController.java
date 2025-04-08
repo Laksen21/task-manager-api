@@ -30,10 +30,11 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponseDTO> login(@RequestBody UserAuthRequestDTO dto) {
         try {
-            String token = userService.loginUser(dto);
-            return ResponseEntity.ok(new JwtAuthResponseDTO(token));
+            JwtAuthResponseDTO authResponse = userService.loginUser(dto);
+            return ResponseEntity.ok(authResponse);
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtAuthResponseDTO(e.getMessage()));
         }
     }
+
 }

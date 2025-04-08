@@ -1,5 +1,6 @@
 package com.taskmanager.api.service;
 
+import com.taskmanager.api.dto.JwtAuthResponseDTO;
 import com.taskmanager.api.dto.UserAuthRequestDTO;
 import com.taskmanager.api.entity.User;
 import com.taskmanager.api.repository.UserRepository;
@@ -33,7 +34,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public String loginUser(UserAuthRequestDTO dto) {
+    public JwtAuthResponseDTO loginUser(UserAuthRequestDTO dto) {
         User user = userRepository.findByUsername(dto.getUsername())
                 .orElseThrow(() -> new BadCredentialsException("Invalid username"));
 
@@ -41,6 +42,8 @@ public class UserService {
             throw new BadCredentialsException("Invalid password");
         }
 
-        return jwtTokenUtil.generateToken(user);
+        String token = jwtTokenUtil.generateToken(user);
+        return new JwtAuthResponseDTO(token, user.getUsername());
     }
+
 }
